@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose , {Schema} from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt'
 
 
-const teacherSchema = new Schema({
+const userSchema = new Schema({
     fullname:{
      type: String,
      required:[true,'Fullname is Required'],
@@ -22,8 +22,9 @@ const teacherSchema = new Schema({
         require:  [true,'Password id Required'],
         unique: true
     },
-    avatar:{
+    profilephoto:{
         type: String,
+        required: [true,'Avatar is required']
         
     },
     registrationnumber:{
@@ -37,31 +38,47 @@ const teacherSchema = new Schema({
         required: [true,'Phone No is Required'],
         unique:true
     },
+    role:{
+        type: String,
+        enum:['User','Teacher','Admin'],
+        required: true
+        
+    },
+    join_date: {
+    type: Date,
+    default: Date.now,
+  },
     refreshtoken:{
         type: String
+    },
+    device_id:{
+        type: String,
+        unique: true
     }
 },{timestamps:true})
 
-teacherSchema.pre("save",async function (next){
+userSchema.pre("save", async function (next){
 
-    if (!this.isModified("password")) {
+    if (!this.isModified("password")) 
         return next()
-    }
-    this.password = bcrypt.hash(this.password, 10)
+    
+    
+    this.password = await bcrypt.hash(this.password, 10)
     next()
 })
 
-teacherSchema.methods.isPasswordCorrect = async function(password){
+userSchema.methods.isPasswordCorrect = async function(password){
     return await bcrypt.compare(password, this.password)
 }
 
-teacherSchema.methods.generateAccessToken= function (){
+userSchema.methods.generateAccessToken= function (){
     jwt.sign(
     {
         _id: this._id,
         email: this.email,
         fullname: this.fullname,
         registrationnumber: this.registrationnumber,
+        role: this.role
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
@@ -70,13 +87,13 @@ teacherSchema.methods.generateAccessToken= function (){
     )
 }
 
-teacherSchema.methods.generateRefreshToken = function(){
+userSchema.methods.generateRefreshToken = function(){
     jwt.sign(
         {
             _id: this._id,
            
-            registrationnumber: this.registrationnumber,
         },
+            
         process.env.REFRESH_TOKEN_SECRET,
         {
             expiresIn: process.env.REFRESH_TOKEN_EXPIRY
@@ -86,4 +103,4 @@ teacherSchema.methods.generateRefreshToken = function(){
 
 
 
-export const Teacher = mongoose.model("Teacher",teacherSchema)
+export const User = mongoose.model("User",userSchema)

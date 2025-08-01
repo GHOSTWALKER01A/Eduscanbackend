@@ -1,19 +1,19 @@
-import express from "express"
+
 import dotenv from "dotenv"
-
+import {app} from './app.js'
 import connectDB from "./db/index.js";
-import startServer from "./utils/DeepseekAI.utils.js";
 
-const app = express()
+
+
 
 dotenv.config({
-  path: './env'
+  path: './.env'
 })
 
 
 
 
-startServer()
+
 
 connectDB()
 .then(()=>{

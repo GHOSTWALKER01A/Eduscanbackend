@@ -19,10 +19,10 @@ app.use(cookieParser())
 
 // Routes
 
-import studentRouter from "./routes/student.routes.js"
+import userRouter from "./routes/user.routes.js"
 
 
 // Declaration
-app.use("/api/v1/students",studentRouter)
+app.use("/api/v1/users",userRouter)
 
-export default{app}
+export {app}

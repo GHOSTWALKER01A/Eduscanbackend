@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asynchandler.js";
 
 
-const Createleave =asyncHandler(async(req, res)=>{
+const createleave =asyncHandler(async(req, res)=>{
   try {
       const leaveData = {
           user: req.user._id,
@@ -27,7 +27,7 @@ const Createleave =asyncHandler(async(req, res)=>{
   }
 });
 
-const Getleave = asyncHandler(async(req, res)=>{
+const getleave = asyncHandler(async(req, res)=>{
 
   try {
       const leaves = await Leave.findOne({user:req.user._id}).sort({createdAt: -1})
@@ -114,5 +114,8 @@ const Deleteleave = asyncHandler(async(req, res)=>{
 
 
 export {
-
+    getleave,
+ createleave,
+ Updateleave,
+ Deleteleave
 }

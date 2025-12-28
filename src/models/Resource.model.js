@@ -1,35 +1,35 @@
-import mongoose, {Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 
 const resourceSchema = new Schema({
 
-    title:{
+    title: {
         type: String,
         required: [true, "Title is required"],
-        trim : true
+        trim: true
     },
-   description:{
-         type: String,
-         trim: true,
-         default: ""
-   },
-   type:{
+    description: {
+        type: String,
+        trim: true,
+        default: ""
+    },
+    type: {
         type: String,
         enum: ['pdf', 'video', 'image', 'other'],
-        required:[true, 'Resource type is required']
+        required: [true, 'Resource type is required']
 
     },
-    fileurl:{
+    fileurl: {
         type: String,
-        required:[true, 'A file URL is required'],
-      trim: true,
+        required: [true, 'A file URL is required'],
+        trim: true,
     },
-    uploadedby:{
+    uploadedby: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required:[ true,'Uploader information is required']
+        required: [true, 'Uploader information is required']
     },
-},{timestamps: true})
+}, { timestamps: true })
 
-export const Resource = mongoose.model('Resource',resourceSchema)
+export const Resource = mongoose.model('Resource', resourceSchema)

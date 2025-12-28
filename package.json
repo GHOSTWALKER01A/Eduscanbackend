@@ -17,13 +17,21 @@
     "cloudinary": "^2.6.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "geolib": "^3.3.4",
+    "ioredis": "^5.8.2",
     "jsonwebtoken": "^9.0.2",
+    "local-devices": "^4.0.0",
     "mongoose": "^8.14.0",
     "mongoose-aggregate-paginate-v2": "^1.1.4",
     "multer": "^1.4.5-lts.2",
-    "openai": "^4.100.0"
+    "nodemailer": "^7.0.6",
+    "openai": "^4.100.0",
+    "socket.io": "^4.8.1",
+    "twilio": "^5.8.2",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10",

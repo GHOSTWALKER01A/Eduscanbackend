@@ -1,34 +1,56 @@
-import mongoose,{Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 const attendanceSchema = new Schema({
 
-    student_id:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    class_id:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Class',
-        required: true
-    },
-    date:{
-        type: Date,
-        required: true
-    },
-    duration:{
-    type: Number,
-    default: 0,
-    },
-    status:{
-        type: String,
-        enum:['Present','Absent','Late'],
-        required: [true,"Attendence status is required"]
-    }
-},{timestamps: true})
+  classId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Class',
+    required: true,
+  },
+  studentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  teacherId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  macHash: {
+    type: String
+  },
+  student_latitude: {
+    type: Number
+  },
+  student_longitude: {
+    type: Number
+  },
+  scannedAt: {
+    type: Date,
+    default: Date.now,
+  },
+  method: {
+    type: String,
+    enum: ['auto', 'manual'],
+    default: 'auto',
+  },
+  token: {
+    type: String, // The QR token used
+  },
+  isValid: {
+    type: Boolean,
+    default: true,
+  },
+  status: {
+     type: String,
+     enum: ['present', 'absent'],
+     default: 'present'
+  },
+}, { timestamps: true })
 
 
 
 
-export const Attendance = mongoose.model('Attendance',attendanceSchema)
+export const Attendance = mongoose.model('Attendance', attendanceSchema)

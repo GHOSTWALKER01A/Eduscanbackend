@@ -1,39 +1,39 @@
-import mongoose, {Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
-const leaveSchema =   new Schema({
+const leaveSchema = new Schema({
 
-    user:{
+    student_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: [true,"User is  required"]
+        required: [true, "User is  required"]
     },
-    leavetype:{
+    leavetype: {
         type: String,
-        enum:['sick','personal',"Vacation",'other'],
-        required: [true,"Leave type is required"]
+        enum: ['sick', 'personal', "Vacation", 'other'],
+        required: [true, "Leave type is required"]
     },
-    startdate:{
-        type:Date,
-        required:[ true,"Start date is required"]
+    startdate: {
+        type: Date,
+        required: [true, "Start date is required"]
     },
-    enddate:{
-        type:Date,
-        required: [true,"End date is required"]
+    enddate: {
+        type: Date,
+        required: [true, "End date is required"]
     },
-    reason:{
-        type:String,
-        required:[ true, "Reason is required"],
+    reason: {
+        type: String,
+        required: [true, "Reason is required"],
         trim: true
     },
-    status:{
+    status: {
         type: String,
-        enum:['Pending','Approved','Rejected'],
+        enum: ['Pending', 'Approved', 'Rejected'],
         default: 'Pending'
     },
-    
-},{timestamps:true})
+
+}, { timestamps: true })
 
 
 
-export const Leave = mongoose.model('Leave',leaveSchema)
+export const Leave = mongoose.model('Leave', leaveSchema)
